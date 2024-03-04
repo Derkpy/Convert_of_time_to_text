@@ -39,10 +39,11 @@ class HourToTextConverter:
             print("one minute to one")
         else:
             hour = hour if not hour >= 12 else hour - 12
+            hour = 12 if hour == 0 else hour
             if 60 - minute == 1 or 60 - minute == 59:
                 self.format_0(word=self.times[1] if minute == 1
                               else self.times[4],
-                              hour=12 if hour == 0 else hour + 1)
+                              hour=hour if minute == 1 else hour + 1)
             else:
                 while True:  # Bucle hasta que encuentre los valores correctos
                     if 2 <= minute <= 14 or 16 <= minute <= 29:
@@ -59,9 +60,9 @@ class HourToTextConverter:
                             else self.times[3],
                             word_2=self.times[4] if (minute == 45)
                             else self.times[1],
-                            hour=self.numbers[hour + 1]
-                            if not (minute == 15) or (minute == 30)
-                            else self.numbers[hour])
+                            hour=self.numbers[hour]
+                            if (minute == 15) or (minute == 30)
+                            else self.numbers[hour + 1])
                         break
                     elif 31 <= minute <= 44 or 46 <= minute <= 58:
                         # minute + "minutes" + to + hour soon
